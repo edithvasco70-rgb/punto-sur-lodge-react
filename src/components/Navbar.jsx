@@ -1,38 +1,95 @@
-import React from 'react';
-import logoImage from '../assets/logo.png'; 
+import React, { useState, useEffect } from 'react';
+import logoImage from '../assets/logo.png';
 
 const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState("inicio");
+
+  useEffect(() => {
+    // Añadimos "promocion" a la lista de secciones para que el Nav sepa rastrearla
+    const sections = ["inicio", "nosotros", "comedor", "tarifario", "reservar", "promocion"];
+
+    const handleScroll = () => {
+      // fondo navbar
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+
+      // sección activa
+      let current = "inicio";
+
+      sections.forEach((sectionId) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const top = section.getBoundingClientRect().top;
+          if (top <= window.innerHeight / 2) {
+            current = sectionId;
+          }
+        }
+      });
+
+      setActive(current);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const linkClass = (section) =>
+    `${
+      active === section
+        ? "text-punto-turquesa border-b border-punto-turquesa pb-4 -mb-[17px]"
+        : "hover:text-punto-turquesa transition-colors"
+    }`;
+
   return (
-    // 1. CAMBIADO: Subimos de text-[10px] a text-[12px] (puedes probar 13px si prefieres)
-    <nav className="absolute top-0 w-full z-50 flex items-center justify-between px-4 md:px-16 py-6 text-white uppercase text-[12px] tracking-[0.3em] font-medium">
-      
+    <nav
+      className={`fixed top-0 w-full z-50 flex items-center justify-between px-4 md:px-16 py-11 uppercase text-[12px] tracking-[0.3em] font-medium transition-all duration-300
+        ${scrolled ? 'bg-white text-gray-800 shadow-md' : 'bg-transparent text-white'}
+      `}
+    >
       {/* MENÚ IZQUIERDA */}
-      <div className="flex gap-20 items-center border-b border-white/30 pb-4 flex-1 justify-end mr-10">
-        <a href="#inicio" className="hover:text-punto-turquesa transition-colors border-b border-punto-turquesa pb-4 -mb-[17px]">Inicio</a>
-        <a href="#nosotros" className="hover:text-punto-turquesa transition-colors">Nosotros</a>
-        <a href="#comedor" className="hover:text-punto-turquesa transition-colors">Comedor & Bar</a>
+      <div className="flex gap-20 items-center pb-4 flex-1 justify-end mr-10 border-b border-white/30">
+        <a href="#inicio" className={linkClass("inicio")}>
+          Inicio
+        </a>
+        <a href="#nosotros" className={linkClass("nosotros")}>
+          Nosotros
+        </a>
+        <a href="#comedor" className={linkClass("comedor")}>
+          Comedor & Bar
+        </a>
       </div>
 
-      {/* --- LOGO CENTRAL --- */}
+      {/* LOGO */}
       <div className="relative -mt-6 group cursor-pointer">
         <div className="w-28 h-28 md:w-36 md:h-36 flex items-center justify-center transition-transform group-hover:scale-105">
-          <img 
-            src={logoImage} 
-            alt="Punto Sur Logo" 
-            className="w-full h-full object-contain" 
-          />
+          <img src={logoImage} alt="Punto Sur Logo" className="w-full h-full object-contain" />
         </div>
       </div>
 
       {/* MENÚ DERECHA */}
-      <div className="flex gap-20 items-center border-b border-white/30 pb-4 flex-1 justify-start ml-10">
-        <a href="#tarifario" className="hover:text-punto-turquesa transition-colors">Tarifario</a>
-        <a href="#reservar" className="hover:text-punto-turquesa transition-colors">Reservar</a>
+      <div className="flex gap-20 items-center pb-4 flex-1 justify-start ml-10 border-b border-white/30">
+        <a href="#tarifario" className={linkClass("tarifario")}>
+          Tarifario
+        </a>
+        <a href="#reservar" className={linkClass("reservar")}>
+          Reservar
+        </a>
         
-        {/* 2. AJUSTE: El botón también suele necesitar un poco más de tamaño si subes el resto */}
-        <button className="bg-punto-turquesa px-6 py-2 text-[10px] font-black hover:bg-cyan-500 transition-all ml-4 shadow-lg active:scale-95">
+        {/* BOTÓN OFERTAS - Ahora es un enlace funcional */}
+        <a 
+          href="#promocion" 
+          className={`px-6 py-2 text-[10px] font-black transition-all ml-4 shadow-lg active:scale-95 text-center
+            ${active === "promocion" 
+              ? 'bg-white text-punto-turquesa border border-punto-turquesa' 
+              : 'bg-punto-turquesa text-white hover:bg-cyan-500'}
+          `}
+        >
           OFERTAS EXCLUSIVAS
-        </button>
+        </a>
       </div>
     </nav>
   );
