@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import room1 from "../assets/habitacion2.jpg";
-import room2 from "../assets/habitacion1.jpeg"; // otra habitación
+import room2 from "../assets/habitacion1.jpeg"; 
 
 const habitaciones = [
   {
@@ -39,8 +39,8 @@ const Tarifario = () => {
       id="tarifario"
       className="bg-[#EDDFC1] pt-12 pb-28 px-6 md:px-24 text-center scroll-mt-48"
     >
-      {/* TEXTO SUPERIOR */}
-      <p className="text-[10px] tracking-[0.3em] text-punto-verde uppercase mb-3">
+      {/* TEXTO SUPERIOR: Aumentado de 10px a 12px */}
+      <p className="text-[12px] tracking-[0.3em] text-punto-verde uppercase mb-3 font-bold">
         Cómodas y relajantes
       </p>
 
@@ -48,9 +48,10 @@ const Tarifario = () => {
         Habitaciones & Suites
       </h2>
 
-      <p className="text-gray-600 max-w-2xl mx-auto text-sm leading-relaxed mb-16">
-        Contamos con 21 cómodas y acogedoras habitaciones, elegantemente
-        amobladas, perfectas para viajes de placer o negocios.
+      {/* TEXTO INFERIOR: Plomo (gray-500), cursiva y fuente serif */}
+      <p className="text-gray-500 max-w-3xl mx-auto text-lg italic font-serif leading-relaxed mb-16">
+        "Contamos con 21 cómodas y acogedoras habitaciones, elegantemente
+        amobladas, perfectas para viajes de placer o negocios."
       </p>
 
       {/* CARRUSEL */}
@@ -66,7 +67,8 @@ const Tarifario = () => {
             <li>• {habitacion.description}</li>
           </ul>
 
-          <p className="text-punto-verde font-serif text-lg mb-6">
+          {/* PRECIO: Tamaño XL resaltado */}
+          <p className="text-punto-verde font-serif text-xl mb-6">
             S/{habitacion.price} <span className="text-sm">/ por noche</span>
           </p>
 
@@ -80,7 +82,7 @@ const Tarifario = () => {
         </div>
 
         {/* DERECHA - IMAGEN */}
-        <div className="relative">
+        <div className="relative h-[350px] md:h-auto">
           <img
             src={habitacion.img}
             alt={habitacion.title}
@@ -90,14 +92,14 @@ const Tarifario = () => {
           {/* FLECHAS */}
           <button
             onClick={prevSlide}
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 w-8 h-8 rounded-full flex items-center justify-center"
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 w-8 h-8 rounded-full flex items-center justify-center hover:bg-white transition-colors"
           >
             ‹
           </button>
 
           <button
             onClick={nextSlide}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 w-8 h-8 rounded-full flex items-center justify-center"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 w-8 h-8 rounded-full flex items-center justify-center hover:bg-white transition-colors"
           >
             ›
           </button>

@@ -9,11 +9,9 @@ const Boletin = () => {
   const handleSuscripcion = (e) => {
     e.preventDefault();
     setSuscrito(true);
-    // Reseteamos el formulario para que el input quede limpio al volver
     e.target.reset(); 
   };
 
-  // Efecto para resetear el mensaje y mostrar el formulario otra vez tras 3 segundos
   useEffect(() => {
     if (suscrito) {
       const timer = setTimeout(() => {
@@ -25,20 +23,23 @@ const Boletin = () => {
   }, [suscrito]);
 
   return (
-    /* El ID es fundamental para que el botón de Promoción te traiga aquí */
+    /* CAMBIO: Ajustamos pt-24 para que el título suba un poco más */
     <section id="boletin" className="w-full bg-white pt-24 pb-20 flex flex-col items-center">
       
       {/* TÍTULOS SUPERIORES */}
       <div className="text-center px-4">
+        {/* Título principal */}
         <h2 className="text-4xl md:text-5xl font-serif text-punto-verde mb-4 tracking-tight leading-tight">
           Suscríbete a nuestro boletín mensual
         </h2>
-        <p className="text-gray-400 font-light italic tracking-[0.15em] text-sm md:text-base mb-12">
+        
+        {/* CAMBIO: mb-8 para acercar el texto descriptivo al contenedor de abajo y subir el conjunto */}
+        <p className="text-gray-500 font-light italic tracking-[0.15em] text-sm md:text-base mb-8">
           ...nunca te perderás de nuestras noticias y promociones!
         </p>
       </div>
 
-      {/* CONTENEDOR CON MÁSCARA (Usa RASGADO.PNG para recortar) */}
+      {/* CONTENEDOR CON MÁSCARA */}
       <div 
         className="relative w-full h-[450px] md:h-[500px] flex items-center justify-center"
         style={{
@@ -75,7 +76,6 @@ const Boletin = () => {
             <div className="bg-white/10 backdrop-blur-md p-6 md:p-10 w-full max-w-lg border border-white/20 shadow-2xl min-h-[160px] flex items-center justify-center transition-all duration-500">
               
               {!suscrito ? (
-                /* FORMULARIO ACTIVO */
                 <form onSubmit={handleSuscripcion} className="flex flex-col sm:flex-row bg-white w-full animate-fade-in">
                   <input 
                     required
@@ -91,7 +91,6 @@ const Boletin = () => {
                   </button>
                 </form>
               ) : (
-                /* MENSAJE DE ÉXITO TEMPORAL */
                 <div className="text-white text-center flex flex-col items-center animate-bounce-subtle">
                   <svg className="w-12 h-12 text-white mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />

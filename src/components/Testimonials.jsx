@@ -32,29 +32,32 @@ const reviews = [
 
 const Testimonials = () => {
   return (
-    <section className="bg-[#EDDFC1] pt-20 pb-32 px-6 relative overflow-hidden">
+    <section className="bg-[#EDDFC1] pt-20 pb-32 px-6 relative overflow-visible">
       
       {/* TÍTULOS */}
-      <div className="text-center mb-16">
-        <p className="text-[11px] tracking-[0.3em] text-punto-verde uppercase mb-3 opacity-70">
+      {/* Ajustado a mb-12 para una separación equilibrada (ni muy lejos ni muy cerca) */}
+      <div className="text-center mb-12 relative z-10">
+        <p className="text-[12px] tracking-[0.3em] text-punto-verde uppercase mb-3 font-bold opacity-70">
           Lee las reseñas, escritas por
         </p>
+        
         <h2 className="text-4xl md:text-5xl font-serif text-punto-verde mb-4">
           Nuestros queridos huéspedes
         </h2>
         
-        <p className="text-gray-500 text-base md:text-lg italic max-w-2xl mx-auto leading-relaxed">
+        <p className="text-gray-500 text-lg italic font-serif max-w-2xl mx-auto leading-relaxed px-4">
           "Nuestros huéspedes son el reflejo de nuestro compromiso. Lee sus experiencias y vive la tuya."
         </p>
       </div>
 
       {/* GRILLA DE COMENTARIOS */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+      {/* Ajustado a pt-16 para que las fotos suban lo justo */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 relative z-20 -mt-24 pt-16 pb-12">
         {reviews.map((review, i) => (
           <div key={i} className="flex flex-col items-center text-center">
             
-            {/* FOTO CIRCULAR - Se agregó -mt-10 para subirlas un poco */}
-            <div className="w-32 h-32 rounded-full overflow-hidden -mt-10 mb-6 border-4 border-white shadow-sm">
+            {/* FOTO CIRCULAR */}
+            <div className="w-32 h-32 rounded-full overflow-hidden mb-6 border-4 border-white shadow-sm">
               <img src={review.image} alt={review.name} className="w-full h-full object-cover" />
             </div>
 
