@@ -6,24 +6,22 @@ const Navbar = () => {
   const [active, setActive] = useState("inicio");
 
   useEffect(() => {
-    // Añadimos "promocion" a la lista de secciones para que el Nav sepa rastrearla
-    const sections = ["inicio", "nosotros", "comedor", "tarifario", "reservar", "promocion"];
+    // 1. Asegúrate de que "mapa" esté aquí (veo que ya lo pusiste, ¡bien!)
+    const sections = ["inicio", "nosotros", "comedor", "tarifario", "mapa", "promocion"];
 
     const handleScroll = () => {
-      // fondo navbar
       if (window.scrollY > 50) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
 
-      // sección activa
       let current = "inicio";
-
       sections.forEach((sectionId) => {
         const section = document.getElementById(sectionId);
         if (section) {
           const top = section.getBoundingClientRect().top;
+          // Ajustamos el margen de detección
           if (top <= window.innerHeight / 2) {
             current = sectionId;
           }
@@ -37,10 +35,11 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Esta es la función que pone la línea turquesa
   const linkClass = (section) =>
     `${
       active === section
-        ? "text-punto-turquesa border-b border-punto-turquesa pb-4 -mb-[17px]"
+        ? "text-punto-turquesa border-b border-punto-turquesa pb-4 -mb-[17px]" 
         : "hover:text-punto-turquesa transition-colors"
     }`;
 
@@ -52,15 +51,9 @@ const Navbar = () => {
     >
       {/* MENÚ IZQUIERDA */}
       <div className="flex gap-20 items-center pb-4 flex-1 justify-end mr-10 border-b border-white/30">
-        <a href="#inicio" className={linkClass("inicio")}>
-          Inicio
-        </a>
-        <a href="#nosotros" className={linkClass("nosotros")}>
-          Nosotros
-        </a>
-        <a href="#comedor" className={linkClass("comedor")}>
-          Comedor & Bar
-        </a>
+        <a href="#inicio" className={linkClass("inicio")}>Inicio</a>
+        <a href="#nosotros" className={linkClass("nosotros")}>Nosotros</a>
+        <a href="#comedor" className={linkClass("comedor")}>Comedor & Bar</a>
       </div>
 
       {/* LOGO */}
@@ -72,14 +65,13 @@ const Navbar = () => {
 
       {/* MENÚ DERECHA */}
       <div className="flex gap-20 items-center pb-4 flex-1 justify-start ml-10 border-b border-white/30">
-        <a href="#tarifario" className={linkClass("tarifario")}>
-          Tarifario
-        </a>
-        <a href="#reservar" className={linkClass("reservar")}>
-          Reservar
+        <a href="#tarifario" className={linkClass("tarifario")}>Tarifario</a>
+        
+        {/* 2. REVISA AQUÍ: El id debe ser "mapa" para que linkClass("mapa") funcione */}
+        <a href="#mapa" className={linkClass("mapa")}>
+          Ubicación
         </a>
         
-        {/* BOTÓN OFERTAS - Ahora es un enlace funcional */}
         <a 
           href="#promocion" 
           className={`px-6 py-2 text-[10px] font-black transition-all ml-4 shadow-lg active:scale-95 text-center

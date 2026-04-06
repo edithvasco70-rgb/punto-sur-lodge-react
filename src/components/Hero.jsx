@@ -29,8 +29,8 @@ const Hero = () => {
         <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black/20 to-transparent"></div>
       </div>
 
-      {/* TEXTO CENTRAL */}
-      <div className="flex-grow flex items-center justify-center px-4 mt-[-5vh]">
+      {/* TEXTO CENTRAL: Bajado con mt-[15vh] */}
+      <div className="flex-grow flex items-center justify-center px-4 mt-[15vh]">
         <div className="text-center text-white z-20 drop-shadow-xl">
           <h1 className="text-3xl md:text-6xl font-serif mb-4 leading-tight tracking-tight uppercase">
             ¿POR QUÉ ESPERAR LAS <br /> VACACIONES QUE MERECES?
@@ -100,7 +100,7 @@ const Hero = () => {
               Solicitar Información
             </button>
 
-            {/* BLOQUE DE CALENDARIO (RESTAURADO) */}
+            {/* BLOQUE DE CALENDARIO */}
             {(showCalendarIn || showCalendarOut) && (
               <div className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 w-[340px] bg-white shadow-2xl rounded-sm overflow-hidden z-50">
                 <div className="bg-punto-turquesa p-3 text-white text-center text-xs font-black uppercase">
