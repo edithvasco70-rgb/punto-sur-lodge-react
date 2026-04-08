@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import room1 from "../assets/habitacion2.jpg";
-import room2 from "../assets/habitacion1.jpeg"; 
+import room1 from "../assets/modelos3.jpeg";
+import room2 from "../assets/habitacion2.jpg"; 
 
 const habitaciones = [
   {

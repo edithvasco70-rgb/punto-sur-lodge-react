@@ -8,8 +8,21 @@ const Hero = () => {
   const [showCalendarIn, setShowCalendarIn] = useState(false);
   const [showCalendarOut, setShowCalendarOut] = useState(false);
 
+  const [checkIn, setCheckIn] = useState(null);
+  const [checkOut, setCheckOut] = useState(null);
+
   const increment = (setter, value) => setter(value + 1);
   const decrement = (setter, value) => { if (value > 0) setter(value - 1); };
+
+  const handleDateSelect = (day) => {
+    if (showCalendarIn) {
+      setCheckIn(day);
+      setShowCalendarIn(false);
+    } else if (showCalendarOut) {
+      setCheckOut(day);
+      setShowCalendarOut(false);
+    }
+  };
 
   return (
     <section 
@@ -29,13 +42,13 @@ const Hero = () => {
         <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-black/20 to-transparent"></div>
       </div>
 
-      {/* TEXTO CENTRAL: Bajado con mt-[15vh] */}
+      {/* TEXTO CENTRAL */}
       <div className="flex-grow flex items-center justify-center px-4 mt-[15vh]">
         <div className="text-center text-white z-20 drop-shadow-xl">
-          <h1 className="text-3xl md:text-6xl font-serif mb-4 leading-tight tracking-tight uppercase">
+          <h1 className="text-2xl md:text-4xl font-serif mb-4 leading-tight tracking-tight uppercase">
             ¿POR QUÉ ESPERAR LAS <br /> VACACIONES QUE MERECES?
           </h1>
-          <p className="uppercase tracking-[0.4em] text-[17px] mb-12 font-semibold">
+          <p className="uppercase tracking-[0.4em] text-[14px] mb-12 font-semibold">
             Regálate el descanso que estabas esperando
           </p>
           <a 
@@ -47,7 +60,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* CONTENEDOR INFERIOR: BARRA + ARENA */}
+      {/* CONTENEDOR INFERIOR */}
       <div className="w-full relative">
         
         {/* BARRA DE RESERVA */}
@@ -58,7 +71,9 @@ const Hero = () => {
             <div className="flex-1 min-w-[150px]">
               <label className="block text-[9px] font-black mb-1 opacity-70 uppercase tracking-[0.2em]">Llegada:</label>
               <div onClick={() => { setShowCalendarIn(!showCalendarIn); setShowCalendarOut(false); }} className="border-b border-punto-verde/30 pb-1 flex justify-between items-center cursor-pointer">
-                <span className="text-[11px] font-bold uppercase opacity-80">Fecha de llegada</span>
+                <span className="text-[11px] font-bold uppercase opacity-80">
+                  {checkIn ? `${checkIn} Marzo 2026` : "Fecha de llegada"}
+                </span>
                 <span className="text-punto-turquesa text-lg">📅</span>
               </div>
             </div>
@@ -67,7 +82,9 @@ const Hero = () => {
             <div className="flex-1 min-w-[150px]">
               <label className="block text-[9px] font-black mb-1 opacity-70 uppercase tracking-[0.2em]">Salida:</label>
               <div onClick={() => { setShowCalendarOut(!showCalendarOut); setShowCalendarIn(false); }} className="border-b border-punto-verde/30 pb-1 flex justify-between items-center cursor-pointer">
-                <span className="text-[11px] font-bold uppercase opacity-80">Fecha de salida</span>
+                <span className="text-[11px] font-bold uppercase opacity-80">
+                  {checkOut ? `${checkOut} Marzo 2026` : "Fecha de salida"}
+                </span>
                 <span className="text-punto-turquesa text-lg">📅</span>
               </div>
             </div>
@@ -96,11 +113,17 @@ const Hero = () => {
               </div>
             </div>
 
-            <button className="bg-punto-verde text-white px-8 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-teal-900 transition-all shadow-md">
+            {/* BOTÓN WHATSAPP SIMPLE */}
+            <a 
+              href="https://wa.me/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-punto-verde text-white px-8 py-3 text-[10px] font-bold uppercase tracking-widest hover:bg-teal-900 transition-all shadow-md text-center"
+            >
               Solicitar Información
-            </button>
+            </a>
 
-            {/* BLOQUE DE CALENDARIO */}
+            {/* CALENDARIO */}
             {(showCalendarIn || showCalendarOut) && (
               <div className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 w-[340px] bg-white shadow-2xl rounded-sm overflow-hidden z-50">
                 <div className="bg-punto-turquesa p-3 text-white text-center text-xs font-black uppercase">
@@ -108,27 +131,19 @@ const Hero = () => {
                 </div>
 
                 <div className="p-6 bg-punto-arena/20 text-punto-verde">
-                  <div className="flex justify-between items-center mb-4">
-                    <button className="text-xl opacity-40">‹</button>
-                    <div className="text-center font-serif">29 <span className="block text-[10px] uppercase">Marzo 2026</span></div>
-                    <button className="text-xl opacity-40">›</button>
-                  </div>
+                  <div className="text-center font-serif mb-4">Marzo 2026</div>
 
-                  <div className="grid grid-cols-7 text-[9px] text-center font-bold mb-3 opacity-40 uppercase">
-                    <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
-                  </div>
-
-                  <div className="grid grid-cols-7 gap-1 text-center text-[12px] mb-4">
+                  <div className="grid grid-cols-7 gap-1 text-center text-[12px]">
                     {[...Array(31)].map((_, i) => (
-                      <span key={i} className={`p-2 rounded-full cursor-pointer hover:bg-punto-turquesa/20 ${i === 28 ? "bg-punto-turquesa text-white" : ""}`}>
+                      <span
+                        key={i}
+                        onClick={() => handleDateSelect(i + 1)}
+                        className={`p-2 rounded-full cursor-pointer hover:bg-punto-turquesa/20 
+                        ${checkIn === i + 1 || checkOut === i + 1 ? "bg-punto-turquesa text-white" : ""}`}
+                      >
                         {i + 1}
                       </span>
                     ))}
-                  </div>
-
-                  <div className="flex justify-end gap-2 pt-4 border-t border-punto-verde/10">
-                    <button onClick={() => {setShowCalendarIn(false); setShowCalendarOut(false);}} className="text-[9px] border border-punto-turquesa text-punto-turquesa px-4 py-1 font-bold">CANCELAR</button>
-                    <button onClick={() => {setShowCalendarIn(false); setShowCalendarOut(false);}} className="text-[9px] bg-punto-turquesa text-white px-4 py-1 font-bold">OK</button>
                   </div>
                 </div>
               </div>
